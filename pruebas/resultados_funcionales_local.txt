@@ -1,0 +1,56 @@
+Corrida local de pruebas funcionales (ms_pruebas.py), fecha 13/11/2026.
+Resultado: V-01 a V-53 aprobadas. V-54 a V-60 no se ejecutaron en esta corrida (puertos directos cerrados en Docker).
+
+OK    V-01 API clientes: Nombre con números ('Juan123') -> HTTP 400; campos con error: ['nombre']
+OK    V-02 API clientes: Nombre solo números ('12345') -> HTTP 400; campos con error: ['nombre']
+OK    V-03 API clientes: Nombre con etiqueta HTML -> HTTP 400; campos con error: ['nombre']
+OK    V-04 API clientes: Nombre de 1 letra -> HTTP 400; campos con error: ['nombre']
+OK    V-05 API clientes: Nombre de 61 letras -> HTTP 400; campos con error: ['nombre']
+OK    V-06 API clientes: Nombre con símbolos ('Ana@Torres') -> HTTP 400; campos con error: ['nombre']
+OK    V-07 API clientes: Teléfono con letras ('abcdefghi') -> HTTP 400; campos con error: ['telefono']
+OK    V-08 API clientes: Teléfono mezcla letras y números ('98765abcd') -> HTTP 400; campos con error: ['telefono']
+OK    V-09 API clientes: Teléfono con signo + ('+51987654321') -> HTTP 400; campos con error: ['telefono']
+OK    V-10 API clientes: Teléfono con espacios ('987 654 321') -> HTTP 400; campos con error: ['telefono']
+OK    V-11 API clientes: Teléfono de 8 dígitos que empieza con 9 -> HTTP 400; campos con error: ['telefono']
+OK    V-12 API clientes: Teléfono de 9 dígitos que empieza con 8 -> HTTP 400; campos con error: ['telefono']
+OK    V-13 API clientes: Teléfono de 10 dígitos -> HTTP 400; campos con error: ['telefono']
+OK    V-14 API clientes: Correo sin arroba -> HTTP 400; campos con error: ['correo']
+OK    V-15 API clientes: Dirección con etiqueta HTML -> HTTP 400; campos con error: ['direccion']
+OK    V-16 API clientes: Distrito con números ('Lima2') -> HTTP 400; campos con error: ['distrito']
+OK    V-17 API clientes: Celular válido de 9 dígitos con nombre con tilde y ñ -> HTTP 201
+OK    V-18 API clientes: Teléfono fijo válido de 7 dígitos -> HTTP 201
+OK    V-19 API clientes: Teléfono fijo válido de 8 dígitos -> HTTP 201
+OK    V-20 API clientes: teléfono repetido -> HTTP 409
+OK    V-21 API clientes: cuerpo que no es JSON -> HTTP 400
+OK    V-22 API solicitudes: solicitud válida -> HTTP 201; código: SOL-000003
+OK    V-23 API solicitudes: nombre con números -> HTTP 400; campos con error: ['nombre']
+OK    V-24 API solicitudes: teléfono con letras -> HTTP 400; campos con error: ['telefono']
+OK    V-25 API solicitudes: descripción demasiado corta -> HTTP 400; campos con error: ['descripcion']
+OK    V-26 API solicitudes: descripción con < > -> HTTP 400; campos con error: ['descripcion']
+OK    V-27 API solicitudes: dirección con símbolos peligrosos -> HTTP 400; campos con error: ['direccion']
+OK    V-28 API solicitudes: categoría que no existe -> HTTP 400
+OK    V-29 10 solicitudes simultáneas con el mismo teléfono nuevo -> códigos: [201] (10 respuestas); clientes con ese teléfono: 1
+OK    V-30 Pantalla Solicitar servicio: nombre con números -> HTTP 200; mensaje del nombre visible: True; marcado is-invalid: True; solicitudes 13→13
+OK    V-31 Pantalla Solicitar servicio: teléfono con letras -> HTTP 200; mensaje visible: True
+OK    V-32 Pantalla Solicitar servicio: datos válidos -> HTTP 302; código: SOL-000014
+OK    V-33 Login del Coordinador (ms-usuarios con su base de datos) -> HTTP 302 → /panel
+OK    V-34 Login con contraseña incorrecta -> HTTP 302 → /login?error
+OK    V-35 Panel Nuevo cliente: nombre con números -> HTTP 200; mensaje visible: True
+OK    V-36 Panel Nuevo cliente: teléfono con letras -> HTTP 200; mensaje visible: True
+OK    V-37 Panel Nuevo cliente: datos válidos -> HTTP 302 → /panel/clientes
+OK    V-38 Panel Nuevo cliente: teléfono repetido -> HTTP 200; aviso visible: True
+OK    V-39 Cabeceras de seguridad en las respuestas -> CSP: sí; X-Frame-Options: DENY; nosniff: nosniff; Referrer-Policy: strict-origin-when-cross-origin
+OK    V-40 Cookie de sesión protegida -> Set-Cookie: JSESSIONID=E8549A75F9E71C8C2486D28CEC3BB83F; Path=/; HttpOnly; SameSite=Lax
+OK    V-41 Recurso estático bootstrap.min.css -> HTTP 200; 232803 bytes
+OK    V-42 Recurso estático bootstrap.bundle.min.js -> HTTP 200; 80721 bytes
+OK    V-43 Recurso estático bootstrap-icons.min.css -> HTTP 200; 85875 bytes
+OK    V-44 Recurso estático bootstrap-icons.woff2 -> HTTP 200; 130396 bytes
+OK    V-45 Recurso estático site.css -> HTTP 200; 17127 bytes
+OK    V-46 Recurso estático validacion.js -> HTTP 200; 6760 bytes
+OK    V-47 Técnico abre Clientes: página de error amigable -> HTTP 403; mensaje amigable: True; página técnica 'Whitelabel': False
+OK    V-48 Ruta inexistente: página de error amigable -> HTTP 404; mensaje amigable: True
+OK    V-49 Formulario público: campo Teléfono con límites del navegador -> inputmode=numeric: True; maxlength=9: True; pattern: True; data-filtro=telefono: True
+OK    V-50 Formulario público: campo Nombre con límites del navegador -> pattern: True; maxlength=60: True; data-filtro=nombre: True
+OK    V-51 Panel Nuevo cliente: campos Nombre y Teléfono con límites del navegador -> teléfono con inputmode/maxlength/filtro: True; nombre con filtro: True
+OK    V-52 Gateway sin clave: listar clientes, listar solicitudes y cambiar estado -> 403 / 403 / 403
+OK    V-53 Gateway con clave incorrecta -> HTTP 403
